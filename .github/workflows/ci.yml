@@ -1,6 +1,11 @@
 name: continuous integration
 run-name: ${{ github.actor }} is testing out Github Actinos
-on: [push]
+on:
+    pull_request:
+       branches: [ main, develop ]
+    push:
+       branches: [ main, develop ]
+
 jobs:
     Explore-Github-Actions:
         runs-on: ubuntu-latest
@@ -8,11 +13,23 @@ jobs:
             - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
             - run: echo "This job is now running on a ${{ runner.os }} server hosted by Github."
             - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-            - name: Check out repository source code
-              uses: actions/checkout@v6
+            - uses: actions/checkout@v6
+              with:
+                node-version: 24
+                chace: npm
             - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
             - run: echo "The workflow is now ready to test your code on runner."
             - name: List files in the repository
               run: |
                 ls ${{ github.workspace }}
             - run: echo "This job's status is ${{ job.status }}."
+            - name: install dependencies
+              run: npm ci
+            - name: correcting the format - run ESLint for typescript
+              run: npx eslint .
+            - name: correcting and validating that types
+              run: npm run typecheck
+            - name: running test
+              run: npm run test
+            - name: build
+              run: npm run build
