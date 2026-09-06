@@ -7,7 +7,7 @@ on:
        branches: [ main, develop ]
 
 jobs:
-    Explore-Github-Actions:
+    ReactRouterCI:
         runs-on: ubuntu-latest
         steps:
             - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
