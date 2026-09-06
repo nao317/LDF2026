@@ -20,6 +20,8 @@ jobs:
               run: npm ci
             - name: correcting the format
               run: npm run Lint
+            - name: correcting and validating that types
+              run: npm run typecheck
             - name: running test
               run: npm run test
             - name: build
