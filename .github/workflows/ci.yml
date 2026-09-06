@@ -1,6 +1,11 @@
 name: continuous integration
 run-name: ${{ github.actor }} is testing out Github Actinos
-on: [push]
+on:
+    pull_request:
+       branches: [ main, develop ]
+    push:
+       branches: [ main, develop ]
+
 jobs:
     Explore-Github-Actions:
         runs-on: ubuntu-latest
